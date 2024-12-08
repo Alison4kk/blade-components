@@ -62,6 +62,16 @@
           "type": "array",
           "default": ["blade"],
           "description": "Languages to enable blade component support"
+        },
+        "blade-components.goto-regex": {
+          "type": "string",
+          "default": "(?<=<x-)(?!slot)[a-z.-]+",
+          "description": "Custom regex for matching strings"
+        },
+        "blade-components.goto-folder": {
+          "type": "string",
+          "default": "/resources/views/components/",
+          "description": "Base folder for components in goto definition"
         }
       }
     }

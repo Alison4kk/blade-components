@@ -70,3 +70,17 @@ export async function getClassComponentFiles() {
 
   return await workspace.findFiles(pattern,"**/vendor/**");
 }
+
+export function nameToPath(path: string): string {
+  const config = workspace.getConfiguration("blade-components");
+  const gotoFolderPrefix = config.get<GlobPattern>("goto-folder") ?? "/resources/views/components/";
+
+  return `${gotoFolderPrefix}${path.replace(/\./g, "/")}.blade.php`;
+}
+
+export function nameToIndexPath(path: string): string {
+  const config = workspace.getConfiguration("blade-components");
+  const gotoFolderPrefix = config.get<GlobPattern>("goto-folder") ?? "/resources/views/components/";
+
+  return `${gotoFolderPrefix}${path.replace(/\./g, "/")}/index.blade.php`;
+}
