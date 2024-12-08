@@ -1,4 +1,4 @@
-import { ExtensionContext } from "vscode";
+import { ExtensionContext, workspace } from "vscode";
 import {
     BladeComponent,
     ClassComponent,
@@ -36,10 +36,11 @@ export async function updateComponentCache(context: ExtensionContext) {
         getClassComponentFiles(),
     ]);
 
+    const rootDelimiterConfig = workspace.getConfiguration("blade-components").get<string>("components-root-delimiter") ?? "View/Components";
+    const rootDelimiter = rootDelimiterConfig.replace(/\//g, path.sep);
+
     for (const file of classComponentFiles) {
-        let relativeViewUri = file.fsPath.split(
-            path.join("View", "Components")
-        )[1];
+        let relativeViewUri = file.fsPath.split(rootDelimiter)[1];
 
         let descriptor =
             "x-" +
@@ -68,9 +69,8 @@ export async function updateComponentCache(context: ExtensionContext) {
     }
 
     for (const file of bladeComponentFiles) {
-        let relativeViewUri = file.fsPath.split(
-            path.join("views", "components")
-        )[1];
+
+        let relativeViewUri = file.fsPath.split(rootDelimiter)[1];
 
         let descriptor =
             "x-" +

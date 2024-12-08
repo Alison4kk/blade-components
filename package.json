@@ -1,18 +1,18 @@
 {
   "name": "blade-components",
-  "displayName": "Laravel Blade Component Support",
-  "description": "Laravel blade component auto-completion",
+  "displayName": "Blade Component Autocomplete",
+  "description": "Adds autocomplete support for Blade components, can be configured for any Laravel and non Laravel project",
   "author": {
-    "name": "webdevsavvy",
-    "url": "https://github.com/webdevsavvy"
+    "name": "Álison Loffi",
+    "url": "https://github.com/Alison4kk"
   },
-  "publisher": "webdevsavvy",
+  "publisher": "Alison4kk",
   "private": "true",
   "license": "MIT",
-  "version": "1.2.4",
+  "version": "1.0.0",
   "repository": {
     "type": "github",
-    "url": "https://github.com/webdevsavvy/blade-components"
+    "url": "https://github.com/Alison4kk/blade-components"
   },
   "icon": "images/logo.png",
   "engines": {
@@ -30,7 +30,7 @@
   ],
   "main": "./out/extension.js",
   "activationEvents": [
-    "onLanguage:blade"
+    "onLanguage:blade", "onLanguage:php"
   ],
   "contributes": {
     "commands" : [
@@ -39,7 +39,32 @@
         "title": "Laravel Blade Component Suppor: Refresh cache",
         "shortTitle": "Refresh cache"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Blade Component Support",
+      "properties": {
+        "blade-components.components-root-delimiter": {
+          "type": "string",
+          "default": "View/Components",
+          "description": "Define the root delimiter for class components"
+        },
+        "blade-components.blade-components-paths": {
+          "type": "string",
+          "default": "**/resources/views/components/**/*.blade.php",
+          "description": "Search pattern for register blade components"
+        },
+        "blade-components.class-components-paths": {
+          "type": "string",
+          "default": "**/View/Components/**/*.php",
+          "description": "Search patterns for register class components"
+        },
+        "blade-components.languages": {
+          "type": "array",
+          "default": ["blade"],
+          "description": "Languages to enable blade component support"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

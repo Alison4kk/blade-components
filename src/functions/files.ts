@@ -2,7 +2,7 @@ import * as fs from "fs/promises";
 import * as path from "path";
 import { undot } from "./strings";
 import { BladeProp, PhpVariable } from "../interfaces/php";
-import { workspace } from "vscode";
+import { GlobPattern, workspace } from "vscode";
 
 export async function fileContainsVariable(
     filePath: string,
@@ -58,15 +58,15 @@ export function pathFromDot(string: string): string {
 }
 
 export async function getBladeComponentFiles() {
-    return await workspace.findFiles(
-        "**/resources/views/components/**/*.blade.php",
-        "**/vendor/**"
-    );
+    const config = workspace.getConfiguration("blade-components");
+    const pattern = config.get<GlobPattern>("blade-components-paths") ?? "**/resources/views/components/**/*.blade.php";
+
+    return await workspace.findFiles(pattern,"**/vendor/**");
 }
 
 export async function getClassComponentFiles() {
-    return await workspace.findFiles(
-        "**/View/Components/**/*.php",
-        "**/vendor/**"
-    );
+  const config = workspace.getConfiguration("blade-components");
+  const pattern = config.get<GlobPattern>("class-components-paths") ?? "**/View/Components/**/*.php";
+
+  return await workspace.findFiles(pattern,"**/vendor/**");
 }
