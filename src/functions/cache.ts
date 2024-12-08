@@ -36,11 +36,11 @@ export async function updateComponentCache(context: ExtensionContext) {
         getClassComponentFiles(),
     ]);
 
-    const rootDelimiterConfig = workspace.getConfiguration("blade-components").get<string>("components-root-delimiter") ?? "View/Components";
-    const rootDelimiter = rootDelimiterConfig.replace(/\//g, path.sep);
+    const rootDelimiterConfigClass = workspace.getConfiguration("blade-components").get<string>("class-components-root-delimiter") ?? "View/Components";
+    const rootDelimiterClass = rootDelimiterConfigClass.replace(/\//g, path.sep);
 
     for (const file of classComponentFiles) {
-        let relativeViewUri = file.fsPath.split(rootDelimiter)[1];
+        let relativeViewUri = file.fsPath.split(rootDelimiterClass)[1];
 
         let descriptor =
             "x-" +
@@ -68,9 +68,12 @@ export async function updateComponentCache(context: ExtensionContext) {
         cache.classComponents.push(classComponent);
     }
 
+    const rootDelimiterConfigBlade = workspace.getConfiguration("blade-components").get<string>("blade-components-root-delimiter") ?? "views/components";
+    const rootDelimiterBlade = rootDelimiterConfigBlade.replace(/\//g, path.sep);
+
     for (const file of bladeComponentFiles) {
 
-        let relativeViewUri = file.fsPath.split(rootDelimiter)[1];
+        let relativeViewUri = file.fsPath.split(rootDelimiterBlade)[1];
 
         let descriptor =
             "x-" +

@@ -43,10 +43,15 @@
     "configuration": {
       "title": "Blade Component Support",
       "properties": {
-        "blade-components.components-root-delimiter": {
+        "blade-components.class-components-root-delimiter": {
           "type": "string",
           "default": "View/Components",
           "description": "Define the root delimiter for class components"
+        },
+        "blade-components.blade-components-root-delimiter": {
+          "type": "string",
+          "default": "views/components",
+          "description": "Define the root delimiter for blade components"
         },
         "blade-components.blade-components-paths": {
           "type": "string",
